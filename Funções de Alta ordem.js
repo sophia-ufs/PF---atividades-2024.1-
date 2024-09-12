@@ -3,6 +3,7 @@ Dada uma lista com 5 elementos, [100, 80, 60, 120, 90], devolva a soma de todos 
 só que usando Map no resultado
 Todas as funções de alta ordem vistas em sala de aula estão liberadas para uso
 */
+//Equipe: Ana Beatriz Soares Dantas, Sophia Damm Zogaib Mardones, Vanessa Santos Oliveira.
 
 const lista = [100, 80, 60, 120, 90]
 const somar = (acc, x) => acc + x
