@@ -10,7 +10,7 @@ const aluno = (nome, idade, matricula, curso) => {
     return {
         nome: nome,
         idade: idade,
-        matrícula: matricula,
+        matricula: matricula,
         curso: curso, 
     }
 }
@@ -18,7 +18,7 @@ const aluno = (nome, idade, matricula, curso) => {
 /*
 2. Criação da Turma: Crie uma lista chamada turma que armazenará instâncias dos(as) alunos(as).
 */
-const turma = []
+const turma = Object.freeze([])
 
 /*
 3. Adição de Alunos(as): 
@@ -49,7 +49,7 @@ const buscaPorCurso = (turma) => (curso) => {
 remove o aluno(a) correspondente da turma.
 */ 
 
-const removerAluno = (nome) => {
+const removerAluno = (turma) => (nome) => {
     return turma.filter((x) => x.nome != nome)
 }
 
@@ -58,21 +58,32 @@ const removerAluno = (nome) => {
 por número de matrícula, do mais antigo ao mais recente.
 */ 
 
-const ordenar = (turma) => {
-    return [...turma].sort((a,b) => a.matricula - b.matricula)   
-}
+const ordenarAlunos = (turma) => [...turma].sort((a,b) => a.matricula-b.matricula)  
 
 /* 
 8. Contagem de Alunos por Curso: Crie uma função que retorna a contagem de alunos(as) 
 para cada curso presente na turma.
 */
-const contagem = () => {
-    return turma.map()
+
+const contar = (turma) => (acc, aluno) => {
+
+    const curso = aluno.curso
+    const busca = acc.filter((x) => x.Curso == curso)
+
+    if(busca.length == 0){
+        return [...acc, {Curso: curso, Qtde : 1, }]
+    }else{
+        return acc.map((x) => x.Curso == curso ? {Curso: curso, Qtde: x.Qtde + 1} : x)
+    }
+}
+
+const ContagemPorCurso = (turma) => {
+    return turma.reduce(contar(turma), Object.freeze([]))
 }
 
 /*
 9. Edição de Alunos: Permita a edição dos detalhes de um(a) aluno(a), como nome, matricula, idade ou curso. 
 */
-const editar = (turma) => (old_matricula) => (novosDados) => {
+const editarAluno = (turma) => (old_matricula) => (novosDados) => {
     return turma.map((x) => x.matricula == old_matricula? novosDados : x)
 }
